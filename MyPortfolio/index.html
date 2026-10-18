@@ -436,6 +436,48 @@
             gap: 8px;
             font-weight: 600;
         }
+        
+        /* --- MOBILE RESPONSIVE FIXES --- */
+        @media (max-width: 768px) {
+            /* Fix the navigation bar so links wrap neatly and shrink slightly */
+            nav {
+                padding: 12px;
+                gap: 12px 16px;
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                font-size: 12px;
+            }
+
+            /* Push the main container further down so the thicker mobile nav doesn't cover your name */
+            .container {
+                padding-top: 140px;
+            }
+
+            /* Shrink the profile picture slightly to save screen space */
+            .hero-image-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            /* Force project cards to take up exactly 1 full column so they don't cause side-scrolling */
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Stack the timeline experience blocks vertically rather than side-by-side */
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            
+            /* Stack the contact buttons properly */
+            .contact-info-list {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
 
     </style>
     
