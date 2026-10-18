@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nawawi's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* G-Coach Design System */
+            --bg-color: #131313;
+            --surface: #333333;
+            --surface-container: #201f1f;
+            --primary: #00e676;
+            --secondary: #ff5252;
+            --text-main: #e5e2e1;
+            --text-muted: #bacbb9;
+            --outline: #859585;
+            
+            --font-main: 'Inter', sans-serif;
+            --radius-lg: 1rem;
+            --radius-pill: 9999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(19, 19, 19, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--surface);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 24px 48px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #000000;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #00b35c;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--outline);
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin-top: auto;
+            align-self: flex-end;
+            border: 1px solid var(--outline);
+        }
+
+        .icon-btn:hover {
+            background-color: var(--primary);
+            color: #131313;
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        /* Section Headers */
+        h2.section-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 48px;
+        }
+        
+        h2.section-title::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 48px;
+            padding: 48px 0 80px;
+            border-bottom: 1px solid var(--surface);
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-text {
+                text-align: left;
+            }
+        }
+
+        .greeting {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-actions {
+                justify-content: flex-start;
+            }
+        }
+
+        .hero-image-container {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--surface);
+            box-shadow: 0 0 24px rgba(0, 230, 118, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        .hero-image-container:hover {
+            border-color: var(--primary);
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Projects Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .project-card {
+            background-color: var(--surface-container);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: var(--surface);
+            object-fit: cover;
+            border-bottom: 1px solid var(--surface);
+        }
+
+        .project-content {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        /* 3D Gallery */
+        .gallery-container {
+            column-count: 2;
+            column-gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container { column-count: 1; }
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            background-color: var(--surface-container);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 24px 16px 16px;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        /* Skills */
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 64px;
+        }
+
+        .skill-chip {
+            background-color: var(--bg-color);
+            border: 1px solid var(--outline);
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            background-color: var(--surface-container);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-item {
+                grid-template-columns: 200px 1fr;
+                align-items: start;
+            }
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .timeline-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            background-color: var(--surface-container);
+            border-radius: var(--radius-lg);
+            padding: 48px 32px;
+            text-align: center;
+            border: 1px solid var(--surface);
+        }
+
+        .contact-card p {
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-size: 18px;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            color: var(--text-main);
+        }
+
+        @media (min-width: 768px) {
+            .contact-info-list {
+                flex-direction: row;
+                justify-content: center;
+                gap: 32px;
+            }
+        }
+
+        .contact-info-list span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+    </style>
+    
+</head>
+<body>
+
+    <nav>
+        <a href="#projects">Projects</a>
+        <a href="#gallery">3D Gallery</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        
+        <header class="hero">
+            <div class="hero-text">
+                <span class="greeting">Hello, I'm</span>
+                <h1>C Wan Muhammad Nawawi</h1>
+                <div class="subtitle">Bachelor of Computer Science (Hons.) Multimedia Computing Student</div>
+                <p>Final-year Multimedia Computing undergraduate at UiTM Shah Alam specializing in game development, mobile programming, and 3D modeling, with hands-on experience using industry-standard development tools. Seeking a technical internship to apply software engineering skills to real-world interactive projects.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn-primary">Email Me</a>
+                    <a href="Resume Intern 2027.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">View My Resume</a>
+                    <a href="#projects" class="btn-outline">View My Work</a>
+                </div>
+            </div>
+            
+            <div class="hero-image-container">
+                <img src="gambar.jpeg" alt="Nawawi Profile Picture">
+            </div>
+        </header>
+
+        <section id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="grid">
+                
+                <!-- Project 1: G-Coach -->
+                <div class="project-card">
+                    <img src="gcoachui.png" alt="G-Coach App" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">G-Coach</div>
+                        <div class="project-desc">For my final year project, I developed an audio-based mobile application centered around a note-matching game designed to help guitarists avoid 'fretboard blindness.' The app integrates the TarsosDSP library for real-time digital signal processing, enabling precise pitch tracking, tuning capabilities, and interactive feedback during gameplay.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <!-- Added background-color, border-color, and text color to highlight this specific chip -->
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px; background-color: var(--primary); border-color: var(--primary); color: #131313;">FYP</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Java</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Android Studio</span>
+                        </div>
+                        
+                        <a href="Sorry.png" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View Project Status">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3: MYR Currency AI -->
+                <div class="project-card">
+                    <img src="MYR.png" alt="MYR Recognition Demo" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">MYR Currency Recognition AI</div>
+                        <div class="project-desc">A machine learning computer vision project trained to detect and classify Malaysian Ringgit notes. Built a custom training pipeline and an interactive GUI for real-time inference using Keras.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Python</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Keras / AI</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">GUI Dev</span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
+                            <a href="https://youtu.be/vgoKI4qnmgk" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Watch Demo Video on YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Dealership System -->
+                <div class="project-card">
+                    <img src="CarRecon.png" alt="Recon Car Dealership System" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">Recon Car Dealership System</div>
+                        <div class="project-desc">A comprehensive internal management system developed for dealership staff. Features include real-time vehicle availability tracking, automated loan calculations, and full CRUD capabilities for inventory management.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">C#</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">.NET</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">MySQL</span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
+                            <!-- GitHub Icon (View Source Code) -->
+                            <a href="https://github.com/2025120243-create/Recon-Car-Dealership-System" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View Source Code on GitHub">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Kubur Run -->
+                <div class="project-card">
+                    <img src="KuburRun.png" alt="Folklore Runner" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">Kubur Run: Escape The Jin</div>
+                        <div class="project-desc">A 2D survival endless runner built in Construct 2 inspired by Malaysian folklore. Players navigate an escalating difficulty curve, dodge cemetery hazards, and manage traditional power-ups to outrun relentless spirits like the Pocong and Pontianak.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Construct 2</span>
+                        </div>
+                        
+                        <a href="https://cwnawawi.itch.io/kubur-run" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Play Game on Itch.io">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 6: Platformer Game -->
+                <div class="project-card">
+                    <!-- Replace src with an actual screenshot of your gameplay -->
+                    <img src="PlatformGame.png" alt="Platformer Game Demo" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">Platformer Game</div>
+                        <div class="project-desc">A 2D platformer built in Construct 2. Players must collect 30 coins to unlock the exit door while navigating hazardous terrain, avoiding deadly thorns and bottomless voids with a strict 3-health limit.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Construct 2</span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
+                            <!-- Play Game Icon (Itch.io) -->
+                            <a href="https://cwnawawi.itch.io/platform-game" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Play Game on Itch.io">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7: Zombie Shooter -->
+                <div class="project-card">
+                    <!-- Replace src with an actual screenshot of your gameplay -->
+                    <img src="ZoombieShooter.png" alt="Zombie Shooter Game" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">Zombie Shooter</div>
+                        <div class="project-desc">A 2D action shooter game developed in Construct 2. Players must eliminate all zombies and crawling monsters to successfully clear the level and finish the game.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Construct 2</span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
+                            <!-- Play Game Icon (Itch.io) -->
+                            <a href="https://cwnawawi.itch.io/zombie-shooter" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Play Game on Itch.io">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: BuddyApp -->
+                <div class="project-card">
+                    <!-- Replace src with a screenshot of the BuddyApp UI -->
+                    <img src="BuddyApp.png" alt="BuddyApp Demo" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">BuddyApp</div>
+                        <div class="project-desc">A mobile application designed to centralize and organize friends' personal information. Features include automated birthday reminders and graphical reports to help users manage relationships efficiently and never miss an important date.</div>
+                        
+                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Java</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Android Studio</span>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
+                            <!-- GitHub Icon (View Source Code) -->
+                            <a href="https://github.com/2025120243-create/BuddyApp" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View Source Code on GitHub">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </a>
+
+                            <!-- Play Video Icon (Watch Demo) -->
+                            <a href="https://youtu.be/cIBGBP5QGOQ" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Watch Demo Video on YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+               <!-- Project 8: Office Chair Grand Prix -->
+                <div class="project-card">
+                    <img src="Office Chair Grand Prix.png" alt="Office Chair Grand Prix Game" class="project-img">
+                    <div class="project-content">
+                        <div class="project-title">Office Chair Grand Prix</div>
+                        <div class="project-desc">A humorous casual racing game developed in Unity where players navigate office chairs through tracks filled with obstacles . Players must combine speed and precision to dodge hazards and achieve the fastest completion time .</div>
+                        
+                        <div class="skills-wrap" style="margin-top: auto; gap: 8px;">
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Unity</span>
+                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">C#</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2 class="section-title">3D Models & Assets</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">These are some 3D models I've engineered in Blender for the Computer Graphics Coursework.</p>
+            
+            <div class="gallery-container">
+                
+                <!-- 1st Model: Burger Stall -->
+                <div class="gallery-item">
+                    <div class="sketchfab-embed-wrapper"> 
+                        <iframe title="Burger Stall" width="100%" height="400" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/15d277d87b96495e83e6a11c67958e51/embed"> </iframe> 
+                        
+                        <p style="font-size: 13px; font-weight: normal; margin: 12px; color: #bacbb9; text-align: center;"> 
+                            <a href="https://sketchfab.com/3d-models/burger-stall-15d277d87b96495e83e6a11c67958e51" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> Burger Stall </a> by 
+                            <a href="https://sketchfab.com/cwnawawi0610" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> cwnawawi0610 </a> on Sketchfab
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2nd Model: Container Beverage Stall -->
+                <div class="gallery-item">
+                    <div class="sketchfab-embed-wrapper"> 
+                        <iframe title="Container Beverage Stall" width="100%" height="400" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4b1220d40c254ab98de4797ab083b127/embed"> </iframe> 
+                        
+                        <p style="font-size: 13px; font-weight: normal; margin: 12px; color: #bacbb9; text-align: center;"> 
+                            <a href="https://sketchfab.com/3d-models/container-beverage-stall-4b1220d40c254ab98de4797ab083b127" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> Container Beverage Stall </a> by 
+                            <a href="https://sketchfab.com/cwnawawi0610" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> cwnawawi0610 </a> on Sketchfab
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">Technical Toolkit</h2>
+            <div class="skills-wrap">
+                <span class="skill-chip">Html</span>
+                <span class="skill-chip">CSS</span>
+                <span class="skill-chip">Java</span>
+                <span class="skill-chip">Python</span>
+                <span class="skill-chip">C++</span>
+                <span class="skill-chip">Unity</span>
+                <span class="skill-chip">Blender (3D)</span>
+                <span class="skill-chip">Android Studio</span>
+                <span class="skill-chip">Construct 2</span>
+                <span class="skill-chip">MySQL</span>
+                <span class="skill-chip">Alight Motion</span>
+                <span class="skill-chip">CapCut</span>
+                <span class="skill-chip">Adobe Photoshop</span>
+                <span class="skill-chip">Adobe Illustrator</span>
+                <span class="skill-chip">Microsoft Excel</span>
+                <span class="skill-chip">Canva</span>
+                </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept 2024 - Feb 2025</div>
+                    <div>
+                        <div class="timeline-title">Database & Automation Officer Internship</div>
+                        <div class="timeline-subtitle">Noor Arfa Sdn Bhd</div>
+                        <p style="color: var(--text-muted); font-size: 14px;">Managed and optimized the customer database to ensure data accuracy and streamline daily operations. Designed and maintained promotional landing pages to drive engagement for marketing campaigns. Automated customer communications by scheduling targeted WhatsApp broadcast campaigns for promotions.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Nov 2024 - Present</div>
+                    <div>
+                        <div class="timeline-title">Delivery Partner</div>
+                        <div class="timeline-subtitle">ShopeeFood</div>
+                        <p style="color: var(--text-muted); font-size: 14px;">Collects food and beverage orders from merchant partners and delivers them safely and promptly to customers using my personal motorcycle</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2025 - 2027 (Expected)</div>
+                    <div>
+                        <div class="timeline-title">Bachelor of Computer Science (Hons.) Multimedia Computing</div>
+                        <div class="timeline-subtitle">UiTM Shah Alam</div>
+                        <p style="color: var(--text-muted); font-size: 14px;">Current CGPA: 3.69 | Relevant Coursework: Data Structures, Enterprise Programming, Game Programming and Computer Graphics.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2022 - 2025</div>
+                    <div>
+                        <div class="timeline-title">Diploma in Computer Science</div>
+                        <div class="timeline-subtitle">UiTM Kuala Terengganu</div>
+                        <p style="color: var(--text-muted); font-size: 14px;">Final CGPA: 3.80 | Awards: Anugerah Naib Canselor (ANC).</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2017 - 2021</div>
+                    <div>
+                        <div class="timeline-title">Sijil Pelajaran Malaysia (SPM)</div>
+                        <div class="timeline-subtitle">SMK Mak Lagam</div>
+                        <p style="color: var(--text-muted); font-size: 14px;">Obtained 5As for 2021 SPM.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-card">
+                <p>I am actively seeking a technical internship opportunity. Whether you have a position available or just want to discuss game development and multimedia programming, I'd love to hear from you.</p>
+                
+                <div class="contact-info-list">
+                    <span>📍 Kemaman, Terengganu / Shah Alam</span>
+                    <span>📱 +60 11-3919 0855</span>
+                </div>
+
+                <!-- Social Media Icons Container -->
+                <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 32px;">
+                    
+                    <!-- LinkedIn Icon (Replace the href with your actual LinkedIn URL) -->
+                    <a href="https://www.linkedin.com/in/cwan-nawawi-2847bb369/" target="_blank" rel="noopener noreferrer" class="icon-btn" style="margin-top: 0; align-self: center;" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    
+                    <!-- GitHub Icon -->
+                    <a href="https://github.com/2025120243-create" target="_blank" rel="noopener noreferrer" class="icon-btn" style="margin-top: 0; align-self: center;" title="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
+
+                </div>
+
+                <a href="mailto:kerjanawawi@gmail.com" class="btn-primary">Email Me Directly</a>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
