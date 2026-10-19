@@ -264,6 +264,11 @@ footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary
 .tl article.has-act .act{flex:none}
 @media(max-width:700px){.tl article.has-act{flex-direction:column;align-items:flex-start;gap:14px}}
 
+/* Poster / still image inside the clip row: keeps its own shape, no play icon */
+.clip.still{width:auto}
+.clip.still img{width:auto;max-width:100%;object-fit:contain}
+.clip.still::after{display:none}
+
 /* Tablet */
 @media(max-width:980px){
   .grid{grid-template-columns:repeat(2,1fr)}
@@ -576,7 +581,7 @@ footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary
   <section id="beyond" class="wrap">
     <div class="sec-head">
       <h2>Beyond Code</h2>
-      <p>Outside of coding, I play guitar in a band and edit videos.</p>
+      <p>Outside of technical work, I enjoy creative multimedia projects, including video editing and poster design. I also do band performances too.</p>
     </div>
 
     <!-- GUITAR SEGMENT -->
@@ -666,11 +671,12 @@ footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary
 
     </div>
 
-        <!-- VIDEO EDITING SEGMENT -->
-    <h3 class="sub">Video Editing</h3>
-    <p class="sub-note">Edits I made using Alight Motion, CapCut, and Ibis Paint X. Since these videos are edited in a mobile phone, the visual quality might be a little low.</p>
+    <!-- VIDEO EDITING SEGMENT -->
+    <h3 class="sub">Multimedia Creative</h3>
+    <p class="sub-note">A selection of my multimedia work, including a poster designed in Adobe Photoshop and short-form video edits created on mobile using Alight Motion, CapCut and Ibis Paint X. As the videos were edited on a phone, the visual quality may be slightly lower. Select any item to view it in full.</p>
     <div class="scroll-row clips">
-      <!-- class "four" = 4:3, "tall" = 9:16 short, no extra class = 16:9 -->
+      <!-- class "still" = image (poster), "four" = 4:3 video, "tall" = 9:16 short, no extra class = 16:9 video -->
+      <a class="clip still" href="Poster.jpg" target="_blank" rel="noopener noreferrer" title="Poster (Adobe Photoshop)"><img src="Poster.jpg" alt="Poster designed in Adobe Photoshop"></a>
       <a class="clip four" href="https://youtube.com/shorts/CEQQykEaUps" target="_blank" rel="noopener noreferrer" title="Jedag-Jedug"><img src="https://img.youtube.com/vi/CEQQykEaUps/hqdefault.jpg" alt="" loading="lazy"></a>
       <a class="clip tall" href="https://youtube.com/shorts/krmGvK5xpuY" target="_blank" rel="noopener noreferrer" title="Mograph"><img src="https://img.youtube.com/vi/krmGvK5xpuY/hqdefault.jpg" alt="" loading="lazy"></a>
       <a class="clip tall" href="https://youtube.com/shorts/bVjRjQ4C1D0" target="_blank" rel="noopener noreferrer" title="Logo Editing"><img src="https://img.youtube.com/vi/bVjRjQ4C1D0/hqdefault.jpg" alt="" loading="lazy"></a>
