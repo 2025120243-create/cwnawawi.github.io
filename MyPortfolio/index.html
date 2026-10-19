@@ -1,878 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nawawi's Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* G-Coach Design System */
-            --bg-color: #131313;
-            --surface: #333333;
-            --surface-container: #201f1f;
-            --primary: #00e676;
-            --secondary: #ff5252;
-            --text-main: #e5e2e1;
-            --text-muted: #bacbb9;
-            --outline: #859585;
-            
-            --font-main: 'Inter', sans-serif;
-            --radius-lg: 1rem;
-            --radius-pill: 9999px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#131313">
+<title>Nawawi's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* G-Coach Design System (same colours as before) */
+  --bg-color:#131313; --surface:#333333; --surface-container:#201f1f; --surface-high:#2a2a2a;
+  --primary:#00e676; --secondary:#ff5252; --text-main:#e5e2e1; --text-muted:#bacbb9; --outline:#859585; --line:#2e2e2e;
+  --font-display:'Space Grotesk','Inter',system-ui,sans-serif; --font-main:'Inter',system-ui,sans-serif;
+  --radius-lg:1rem; --radius-pill:9999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg-color);color:var(--text-main);font-family:var(--font-main);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,iframe{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:6px}
+.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+section{padding:72px 0 8px}
+h1,h2,h3{font-family:var(--font-display);color:#fff}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
+/* Header */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(19,19,19,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.bar{height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font:700 17px var(--font-display);color:#fff;text-decoration:none}
+.brand b{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--primary);color:#000;font-size:13px}
+.links{display:flex;gap:2px}
+.links a{color:var(--text-muted);text-decoration:none;font-weight:500;font-size:14px;padding:8px 13px;border-radius:var(--radius-pill);transition:color .2s,background .2s}
+.links a:hover{color:#fff}
+.links a.on{color:var(--primary);background:rgba(0,230,118,.1)}
+.menu-btn{display:none;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer}
+.menu-btn .x,.menu-btn[aria-expanded=true] .o{display:none}
+.menu-btn[aria-expanded=true] .x{display:block}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:var(--radius-pill);font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s,color .2s}
+.btn-primary{background:var(--primary);color:#000}
+.btn-primary:hover{background:#00b35c;transform:translateY(-2px)}
+.btn-outline{border-color:var(--outline);color:var(--text-main)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.act{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border-radius:var(--radius-pill);border:1px solid var(--outline);font-weight:600;font-size:13px;text-decoration:none;transition:all .2s}
+.act:hover{border-color:var(--primary);color:var(--primary)}
 
-        /* Navigation */
-        nav {
-            background-color: rgba(19, 19, 19, 0.9);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--surface);
-            padding: 16px 24px;
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-        }
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 320px;align-items:center;gap:56px;padding-top:64px;padding-bottom:72px;position:relative}
+.hero::before{content:"";position:absolute;right:-8%;top:-10%;width:520px;height:520px;background:radial-gradient(circle,rgba(0,230,118,.12),transparent 65%);pointer-events:none;z-index:-1}
+.status{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface-container);font-size:13px;font-weight:500;color:var(--text-muted);margin-bottom:24px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px var(--primary)}
+.greeting{display:block;color:var(--primary);font-weight:600;font-size:18px;margin-bottom:6px}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.4rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
+.subtitle{font-size:clamp(1.05rem,2.4vw,1.3rem);font-weight:600;color:var(--text-main);margin-bottom:20px;max-width:34ch}
+.hero-text p{color:var(--text-muted);max-width:56ch;margin-bottom:32px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.portrait{width:100%;aspect-ratio:1;border-radius:50%;padding:7px;background:conic-gradient(from 200deg,var(--primary),#0a7a45 35%,var(--surface) 65%,var(--primary));box-shadow:0 0 60px rgba(0,230,118,.14);justify-self:center}
+.portrait img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:6px solid var(--bg-color)}
+.stats{grid-column:1/-1;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface-container);overflow:hidden}
+.stats li{padding:20px 24px;display:flex;flex-direction:column}
+.stats li+li{border-left:1px solid var(--line)}
+.stats b{font:700 2rem/1.1 var(--font-display);color:#fff}
+.stats span{font-size:13px;color:var(--text-muted)}
+.hero-text>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.hero-text>:nth-child(2){animation-delay:.08s}.hero-text>:nth-child(3){animation-delay:.16s}.hero-text>:nth-child(4){animation-delay:.24s}.hero-text>:nth-child(5){animation-delay:.32s}.hero-text>:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
 
-        nav a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
+/* Section heads */
+.sec-head{margin-bottom:28px}
+.sec-head h2{font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.sec-head p{color:var(--text-muted);margin-top:8px;max-width:60ch}
 
-        nav a:hover {
-            color: var(--primary);
-        }
+/* Projects */
+.filters{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;margin-bottom:20px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:40px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid var(--outline);background:transparent;color:var(--text-main);font:600 14px var(--font-main);cursor:pointer;transition:all .2s}
+.chip:hover{border-color:var(--primary);color:var(--primary)}
+.chip[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:#000}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{display:flex;flex-direction:column;background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .25s,transform .25s}
+.card[hidden]{display:none}
+.card:hover{border-color:var(--primary);transform:translateY(-4px)}
+.shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--surface)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s}
+.card:hover .shot img{transform:scale(1.04)}
+.tag{position:absolute;left:12px;top:12px;padding:4px 12px;border-radius:var(--radius-pill);background:rgba(19,19,19,.8);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:12px;font-weight:600;color:var(--primary)}
+.body{display:flex;flex-direction:column;gap:12px;padding:20px;flex:1}
+.body h3{font-size:1.2rem;font-weight:700;line-height:1.25}
+.body p{color:var(--text-muted);font-size:14.5px}
+.tech{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
+.tech span{padding:3px 10px;border-radius:var(--radius-pill);background:var(--surface-high);font-size:12px;font-weight:500}
+.tech .fyp{background:var(--primary);color:#131313;font-weight:700}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
 
-        /* Container */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 100px 24px 48px;
-        }
+/* 3D gallery */
+.models{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.model{background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .25s}
+.model:hover{border-color:var(--primary)}
+.model iframe{width:100%;height:380px;border:0;background:#000}
+.model p{font-size:13px;color:var(--text-muted);padding:14px 16px;text-align:center}
+.model a{font-weight:700;color:var(--primary);text-decoration:none}
 
-        /* Buttons */
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--primary);
-            color: #000000;
-            padding: 12px 24px;
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary:hover {
-            background-color: #00b35c;
-            transform: translateY(-2px);
-        }
+/* Skills */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.group{background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px}
+.group h3{font-size:1rem;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{padding:8px 16px;border:1px solid var(--outline);border-radius:var(--radius-pill);font-weight:600;font-size:14px;transition:all .2s}
+.chips span:hover{border-color:var(--primary);color:var(--primary)}
 
-        .btn-outline {
-            display: inline-block;
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--outline);
-            padding: 12px 24px;
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.2s;
-        }
+/* Timeline */
+.tl{position:relative;display:grid;gap:16px;padding-left:28px;max-width:820px}
+.tl::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.tl article{position:relative;background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px 22px}
+.tl article::before{content:"";position:absolute;left:-28px;top:26px;width:16px;height:16px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 4px var(--bg-color)}
+.tl .now::before{background:var(--primary)}
+.when{font-size:13px;font-weight:700;color:var(--primary)}
+.tl h3{font-size:1.1rem;margin:4px 0 2px}
+.org{font-size:14px;color:var(--text-main);font-weight:500;margin-bottom:8px}
+.tl p{color:var(--text-muted);font-size:14.5px}
 
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        
-        .icon-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background-color: transparent;
-            color: var(--primary);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            margin-top: auto;
-            align-self: flex-end;
-            border: 1px solid var(--outline);
-        }
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);padding:40px}
+.c-info>p{font-size:18px;margin-bottom:24px}
+.tiles{display:grid;grid-template-columns:1fr;gap:12px}
+.tile span{overflow-wrap:anywhere}
+.c-form{display:flex;flex-direction:column;gap:8px;background:var(--bg-color);border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px}
+.c-form h3{font-size:1.3rem;margin-bottom:4px}
+.c-form label{font-weight:600;font-size:14px;margin-top:8px}
+.c-form input,.c-form textarea{width:100%;font:400 16px var(--font-main);color:var(--text-main);background:var(--surface-container);border:1px solid var(--line);border-radius:12px;padding:14px 16px;transition:border-color .2s,box-shadow .2s}
+.c-form textarea{resize:vertical;min-height:140px}
+.c-form ::placeholder{color:#7d8a7c}
+.c-form input:focus,.c-form textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,230,118,.15)}
+.c-form [aria-invalid=true]{border-color:var(--secondary)}
+.err{color:var(--secondary);font-size:14px;font-weight:500}
+.form-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.form-actions .btn{flex:1 1 180px}
+button.btn{font-family:var(--font-main);cursor:pointer}
+.btn-wa{background:rgba(0,230,118,.1);border-color:var(--primary);color:var(--primary)}
+.btn-wa:hover{background:var(--primary);color:#000;transform:translateY(-2px)}
+.hint{font-size:13px;color:var(--text-muted);margin-top:4px}
+.tile{display:flex;align-items:center;gap:12px;min-height:64px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg-color);text-decoration:none;font-size:14px;font-weight:600;transition:border-color .2s}
+a.tile:hover{border-color:var(--primary)}
+.tile .i{color:var(--primary);width:22px;height:22px}
+.tile small{display:block;font-weight:400;font-size:12px;color:var(--text-muted)}
+footer{padding:48px 0 calc(40px + env(safe-area-inset-bottom,0px));color:var(--text-muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:24px}
+footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary)}
 
-        .icon-btn:hover {
-            background-color: var(--primary);
-            color: #131313;
-            transform: translateY(-2px);
-            border-color: var(--primary);
-        }
-
-        /* Section Headers */
-        h2.section-title {
-            font-size: 32px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 32px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding-top: 48px;
-        }
-        
-        h2.section-title::before {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 4px;
-            background-color: var(--primary);
-            border-radius: 4px;
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: center;
-            gap: 48px;
-            padding: 48px 0 80px;
-            border-bottom: 1px solid var(--surface);
-        }
-
-        @media (min-width: 768px) {
-            .hero {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-            }
-        }
-
-        .hero-text {
-            flex: 1;
-            text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .hero-text {
-                text-align: left;
-            }
-        }
-
-        .greeting {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.1;
-            margin-bottom: 16px;
-        }
-
-        .hero .subtitle {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 16px;
-            margin-bottom: 32px;
-            max-width: 500px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-        }
-
-        @media (min-width: 768px) {
-            .hero-actions {
-                justify-content: flex-start;
-            }
-        }
-
-        .hero-image-container {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--surface);
-            box-shadow: 0 0 24px rgba(0, 230, 118, 0.1);
-            transition: border-color 0.3s ease;
-        }
-
-        .hero-image-container:hover {
-            border-color: var(--primary);
-        }
-
-        .hero-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Projects Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 64px;
-        }
-
-        .project-card {
-            background-color: var(--surface-container);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 200px;
-            background-color: var(--surface);
-            object-fit: cover;
-            border-bottom: 1px solid var(--surface);
-        }
-
-        .project-content {
-            padding: 24px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .project-desc {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 16px;
-            flex-grow: 1;
-        }
-
-        /* 3D Gallery */
-        .gallery-container {
-            column-count: 2;
-            column-gap: 24px;
-            margin-bottom: 64px;
-        }
-
-        @media (max-width: 768px) {
-            .gallery-container { column-count: 1; }
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 24px;
-            background-color: var(--surface-container);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            position: relative;
-            border: 2px solid transparent;
-        }
-
-        .gallery-item:hover {
-            border-color: var(--primary);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            display: block;
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 24px 16px 16px;
-            font-weight: 600;
-            color: #ffffff;
-            font-size: 14px;
-        }
-
-        /* Skills */
-        .skills-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 64px;
-        }
-
-        .skill-chip {
-            background-color: var(--bg-color);
-            border: 1px solid var(--outline);
-            padding: 10px 20px;
-            border-radius: var(--radius-pill);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Experience Timeline */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-bottom: 64px;
-        }
-
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            background-color: var(--surface-container);
-            padding: 24px;
-            border-radius: var(--radius-lg);
-            border-left: 4px solid var(--primary);
-        }
-
-        @media (min-width: 768px) {
-            .timeline-item {
-                grid-template-columns: 200px 1fr;
-                align-items: start;
-            }
-        }
-
-        .timeline-date {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .timeline-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-        
-        .timeline-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        /* Contact Section */
-        .contact-card {
-            background-color: var(--surface-container);
-            border-radius: var(--radius-lg);
-            padding: 48px 32px;
-            text-align: center;
-            border: 1px solid var(--surface);
-        }
-
-        .contact-card p {
-            max-width: 600px;
-            margin: 0 auto 32px;
-            font-size: 18px;
-        }
-
-        .contact-info-list {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 32px;
-            color: var(--text-main);
-        }
-
-        @media (min-width: 768px) {
-            .contact-info-list {
-                flex-direction: row;
-                justify-content: center;
-                gap: 32px;
-            }
-        }
-
-        .contact-info-list span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-        
-        /* --- MOBILE RESPONSIVE FIXES --- */
-        @media (max-width: 768px) {
-            /* Fix the navigation bar so links wrap neatly and shrink slightly */
-            nav {
-                padding: 12px;
-                gap: 12px 16px;
-                flex-wrap: wrap;
-            }
-            
-            nav a {
-                font-size: 12px;
-            }
-
-            /* Push the main container further down so the thicker mobile nav doesn't cover your name */
-            .container {
-                padding-top: 140px;
-            }
-
-            /* Shrink the profile picture slightly to save screen space */
-            .hero-image-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            /* Force project cards to take up exactly 1 full column so they don't cause side-scrolling */
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* Stack the timeline experience blocks vertically rather than side-by-side */
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 4px;
-            }
-            
-            /* Stack the contact buttons properly */
-            .contact-info-list {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            /* --- Button Fixes for Mobile --- */
-            .hero-actions {
-                flex-direction: column; 
-                width: 100%; 
-                align-items: stretch; 
-            }
-            
-            .btn-primary, .btn-outline {
-                text-align: center;
-                white-space: nowrap; 
-            }
-        }
-
-    </style>
-    
+/* Tablet */
+@media(max-width:980px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .hero{grid-template-columns:1fr 240px;gap:32px}
+}
+/* Mobile */
+@media(max-width:860px){
+  .menu-btn{display:grid}
+  .links{position:absolute;left:0;right:0;top:100%;flex-direction:column;background:#161616;border-bottom:1px solid var(--line);padding:8px max(20px,env(safe-area-inset-left)) 16px;display:none}
+  .links.open{display:flex}
+  .links a{padding:14px 12px;font-size:16px}
+}
+@media(max-width:700px){
+  section{padding-top:56px}
+  .hero{grid-template-columns:1fr;gap:28px;padding-top:32px;padding-bottom:48px}
+  .portrait{width:132px;order:-1;justify-self:start}
+  .hero-actions .btn{width:100%}
+  .stats b{font-size:1.5rem}
+  .stats li{padding:16px 14px}
+  .grid,.models,.skills{grid-template-columns:1fr}
+  .model iframe{height:300px}
+  .contact{padding:24px 16px}
+  .c-info>p{font-size:16px}
+  .c-form{padding:20px}
+}
+@media(max-width:860px){.contact{grid-template-columns:1fr;gap:28px}}
+@media(min-width:560px) and (max-width:860px){.tiles{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="#projects">Projects</a>
-        <a href="#gallery">3D Gallery</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+  <symbol id="i-gh" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="#top" class="brand"><b>CWN</b>Nawawi</a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#projects">Projects</a>
+      <a href="#gallery">3D Gallery</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
     </nav>
+    <button class="menu-btn" id="menu" aria-expanded="false" aria-controls="links" aria-label="Toggle menu">
+      <svg class="i o"><use href="#i-menu"/></svg><svg class="i x"><use href="#i-x"/></svg>
+    </button>
+  </div>
+</header>
 
-    <div class="container">
-        
-        <header class="hero">
-            <div class="hero-text">
-                <span class="greeting">Hello, I'm</span>
-                <h1>C Wan Muhammad Nawawi</h1>
-                <div class="subtitle">Bachelor of Computer Science (Hons.) Multimedia Computing Student</div>
-                <p>Final-year Multimedia Computing undergraduate at UiTM Shah Alam specializing in game development, mobile programming, and 3D modeling, with hands-on experience using industry-standard development tools. Seeking a technical internship to apply software engineering skills to real-world interactive projects.</p>
-                <div class="hero-actions">
-                    <a href="#contact" class="btn-primary">Email Me</a>
-                    <a href="Resume Intern 2027.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">View My Resume</a>
-                    <a href="#projects" class="btn-outline">View My Work</a>
-                </div>
-            </div>
-            
-            <div class="hero-image-container">
-                <img src="gambar.jpeg" alt="Nawawi Profile Picture">
-            </div>
-        </header>
+<main id="top">
+  <header class="wrap hero">
+    <div class="hero-text">
+      <span class="status"><i></i>Open to technical internships</span>
+      <span class="greeting">Hello, I'm</span>
+      <h1>C Wan Muhammad Nawawi</h1>
+      <div class="subtitle">Bachelor of Computer Science (Hons.) Multimedia Computing Student</div>
+      <p>Final-year Multimedia Computing undergraduate at UiTM Shah Alam specializing in game development, mobile programming, and 3D modeling, with hands-on experience using industry-standard development tools. Seeking a technical internship to apply software engineering skills to real-world interactive projects.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Email Me</a>
+        <a href="Resume Intern 2027.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><svg class="i"><use href="#i-file"/></svg>View My Resume</a>
+        <a href="#projects" class="btn btn-outline">View My Work</a>
+      </div>
+    </div>
+    <div class="portrait"><img src="gambar.jpeg" alt="Nawawi Profile Picture"></div>
+    <ul class="stats">
+      <li><b>3.69</b><span>Current CGPA</span></li>
+      <li><b>3.80</b><span>Diploma CGPA</span></li>
+      <li><b>11</b><span>Featured projects</span></li>
+    </ul>
+  </header>
 
-        <section id="projects">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="grid">
-                
-                <!-- Project 1: G-Coach -->
-                <div class="project-card">
-                    <img src="gcoachui.png" alt="G-Coach App" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">G-Coach</div>
-                        <div class="project-desc">For my final year project, I developed an audio-based mobile application centered around a note-matching game designed to help guitarists avoid 'fretboard blindness.' The app integrates the TarsosDSP library for real-time digital signal processing, enabling precise pitch tracking, tuning capabilities, and interactive feedback during gameplay.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <!-- Added background-color, border-color, and text color to highlight this specific chip -->
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px; background-color: var(--primary); border-color: var(--primary); color: #131313;">FYP</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Java</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Android Studio</span>
-                        </div>
-                        
-                        <a href="Sorry.png" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View Project Status">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+  <section id="projects" class="wrap">
+    <div class="sec-head"><h2>Featured Projects</h2></div>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button class="chip" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" data-f="mobile" aria-pressed="false">Mobile</button>
+      <button class="chip" data-f="game" aria-pressed="false">Games</button>
+      <button class="chip" data-f="software" aria-pressed="false">AI &amp; Software</button>
+    </div>
+    <div class="grid">
 
-                <!-- Project 3: MYR Currency AI -->
-                <div class="project-card">
-                    <img src="MYR.png" alt="MYR Recognition Demo" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">MYR Currency Recognition AI</div>
-                        <div class="project-desc">A machine learning computer vision project trained to detect and classify Malaysian Ringgit notes. Built a custom training pipeline and an interactive GUI for real-time inference using Keras.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Python</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Keras / AI</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">GUI Dev</span>
-                        </div>
-                        
-                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
-                            <a href="https://youtu.be/vgoKI4qnmgk" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Watch Demo Video on YouTube">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+      <!-- G-Coach -->
+      <article class="card" data-c="mobile">
+        <div class="shot"><img src="gcoachui.png" alt="G-Coach App" loading="lazy"><span class="tag">Mobile app</span></div>
+        <div class="body">
+          <h3>G-Coach</h3>
+          <p>For my final year project, I developed an audio-based mobile application centered around a note-matching game designed to help guitarists avoid 'fretboard blindness.' The app integrates the TarsosDSP library for real-time digital signal processing, enabling precise pitch tracking, tuning capabilities, and interactive feedback during gameplay.</p>
+          <div class="tech"><span class="fyp">FYP</span><span>Java</span><span>Android Studio</span></div>
+          <div class="acts"><a class="act" href="Sorry.png" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-ext"/></svg>Project status</a></div>
+        </div>
+      </article>
 
-                <!-- Project 4: Dealership System -->
-                <div class="project-card">
-                    <img src="CarRecon.png" alt="Recon Car Dealership System" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">Recon Car Dealership System</div>
-                        <div class="project-desc">A comprehensive internal management system developed for dealership staff. Features include real-time vehicle availability tracking, automated loan calculations, and full CRUD capabilities for inventory management.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">C#</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">.NET</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">MySQL</span>
-                        </div>
-                        
-                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
-                            <!-- GitHub Icon (View Source Code) -->
-                            <a href="https://github.com/2025120243-create/Recon-Car-Dealership-System" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View Source Code on GitHub">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                                </svg>
-                            </a>
+      <!-- MYR Currency AI -->
+      <article class="card" data-c="software">
+        <div class="shot"><img src="MYR.png" alt="MYR Recognition Demo" loading="lazy"><span class="tag">AI</span></div>
+        <div class="body">
+          <h3>MYR Currency Recognition AI</h3>
+          <p>A machine learning computer vision project trained to detect and classify Malaysian Ringgit notes. Built a custom training pipeline and an interactive GUI for real-time inference using Keras.</p>
+          <div class="tech"><span>Python</span><span>Keras / AI</span><span>GUI Dev</span></div>
+          <div class="acts"><a class="act" href="https://youtu.be/vgoKI4qnmgk" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-play"/></svg>Demo video</a></div>
+        </div>
+      </article>
 
-                        </div>
-                    </div>
-                </div>
+      <!-- Dealership -->
+      <article class="card" data-c="software">
+        <div class="shot"><img src="CarRecon.png" alt="Recon Car Dealership System" loading="lazy"><span class="tag">Desktop app</span></div>
+        <div class="body">
+          <h3>Recon Car Dealership System</h3>
+          <p>A comprehensive internal management system developed for dealership staff. Features include real-time vehicle availability tracking, automated loan calculations, and full CRUD capabilities for inventory management.</p>
+          <div class="tech"><span>C#</span><span>.NET</span><span>MySQL</span></div>
+          <div class="acts"><a class="act" href="https://github.com/2025120243-create/Recon-Car-Dealership-System" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-gh"/></svg>Source code</a></div>
+        </div>
+      </article>
 
-                <!-- Project 2: Kubur Run -->
-                <div class="project-card">
-                    <img src="KuburRun.png" alt="Folklore Runner" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">Kubur Run: Escape The Jin</div>
-                        <div class="project-desc">A 2D survival endless runner built in Construct 2 inspired by Malaysian folklore. Players navigate an escalating difficulty curve, dodge cemetery hazards, and manage traditional power-ups to outrun relentless spirits like the Pocong and Pontianak.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Construct 2</span>
-                        </div>
-                        
-                        <a href="https://cwnawawi.itch.io/kubur-run" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Play Game on Itch.io">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+      <!-- Kubur Run -->
+      <article class="card" data-c="game">
+        <div class="shot"><img src="KuburRun.png" alt="Folklore Runner" loading="lazy"><span class="tag">Game</span></div>
+        <div class="body">
+          <h3>Kubur Run: Escape The Jin</h3>
+          <p>A 2D survival endless runner built in Construct 2 inspired by Malaysian folklore. Players navigate an escalating difficulty curve, dodge cemetery hazards, and manage traditional power-ups to outrun relentless spirits like the Pocong and Pontianak.</p>
+          <div class="tech"><span>Construct 2</span></div>
+          <div class="acts"><a class="act" href="https://cwnawawi.itch.io/kubur-run" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-ext"/></svg>Play on itch.io</a></div>
+        </div>
+      </article>
 
-                <!-- Project 6: Platformer Game -->
-                <div class="project-card">
-                    <!-- Replace src with an actual screenshot of your gameplay -->
-                    <img src="PlatformGame.png" alt="Platformer Game Demo" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">Platformer Game</div>
-                        <div class="project-desc">A 2D platformer built in Construct 2. Players must collect 30 coins to unlock the exit door while navigating hazardous terrain, avoiding deadly thorns and bottomless voids with a strict 3-health limit.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Construct 2</span>
-                        </div>
-                        
-                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
-                            <!-- Play Game Icon (Itch.io) -->
-                            <a href="https://cwnawawi.itch.io/platform-game" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Play Game on Itch.io">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+      <!-- Platformer -->
+      <article class="card" data-c="game">
+        <div class="shot"><img src="PlatformGame.png" alt="Platformer Game Demo" loading="lazy"><span class="tag">Game</span></div>
+        <div class="body">
+          <h3>Platformer Game</h3>
+          <p>A 2D platformer built in Construct 2. Players must collect 30 coins to unlock the exit door while navigating hazardous terrain, avoiding deadly thorns and bottomless voids with a strict 3-health limit.</p>
+          <div class="tech"><span>Construct 2</span></div>
+          <div class="acts"><a class="act" href="https://cwnawawi.itch.io/platform-game" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-ext"/></svg>Play on itch.io</a></div>
+        </div>
+      </article>
 
-                <!-- Project 7: Zombie Shooter -->
-                <div class="project-card">
-                    <!-- Replace src with an actual screenshot of your gameplay -->
-                    <img src="ZoombieShooter.png" alt="Zombie Shooter Game" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">Zombie Shooter</div>
-                        <div class="project-desc">A 2D action shooter game developed in Construct 2. Players must eliminate all zombies and crawling monsters to successfully clear the level and finish the game.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Construct 2</span>
-                        </div>
-                        
-                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
-                            <!-- Play Game Icon (Itch.io) -->
-                            <a href="https://cwnawawi.itch.io/zombie-shooter" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Play Game on Itch.io">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+      <!-- Zombie Shooter -->
+      <article class="card" data-c="game">
+        <div class="shot"><img src="ZoombieShooter.png" alt="Zombie Shooter Game" loading="lazy"><span class="tag">Game</span></div>
+        <div class="body">
+          <h3>Zombie Shooter</h3>
+          <p>A 2D action shooter game developed in Construct 2. Players must eliminate all zombies and crawling monsters to successfully clear the level and finish the game.</p>
+          <div class="tech"><span>Construct 2</span></div>
+          <div class="acts"><a class="act" href="https://cwnawawi.itch.io/zombie-shooter" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-ext"/></svg>Play on itch.io</a></div>
+        </div>
+      </article>
 
-                <!-- Project 5: BuddyApp -->
-                <div class="project-card">
-                    <!-- Replace src with a screenshot of the BuddyApp UI -->
-                    <img src="BuddyApp.png" alt="BuddyApp Demo" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">BuddyApp</div>
-                        <div class="project-desc">A mobile application designed to centralize and organize friends' personal information. Features include automated birthday reminders and graphical reports to help users manage relationships efficiently and never miss an important date.</div>
-                        
-                        <div class="skills-wrap" style="margin-bottom: 24px; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Java</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Android Studio</span>
-                        </div>
-                        
-                        <div style="display: flex; gap: 12px; margin-top: auto; justify-content: flex-end;">
-                            <!-- GitHub Icon (View Source Code) -->
-                            <a href="https://github.com/2025120243-create/BuddyApp" target="_blank" rel="noopener noreferrer" class="icon-btn" title="View Source Code on GitHub">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                                </svg>
-                            </a>
+      <!-- BuddyApp -->
+      <article class="card" data-c="mobile">
+        <div class="shot"><img src="BuddyApp.png" alt="BuddyApp Demo" loading="lazy"><span class="tag">Mobile app</span></div>
+        <div class="body">
+          <h3>BuddyApp</h3>
+          <p>A mobile application designed to centralize and organize friends' personal information. Features include automated birthday reminders and graphical reports to help users manage relationships efficiently and never miss an important date.</p>
+          <div class="tech"><span>Java</span><span>Android Studio</span></div>
+          <div class="acts">
+            <a class="act" href="https://github.com/2025120243-create/BuddyApp" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-gh"/></svg>Source code</a>
+            <a class="act" href="https://youtu.be/cIBGBP5QGOQ" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-play"/></svg>Demo video</a>
+          </div>
+        </div>
+      </article>
 
-                            <!-- Play Video Icon (Watch Demo) -->
-                            <a href="https://youtu.be/cIBGBP5QGOQ" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Watch Demo Video on YouTube">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+      <!-- Office Chair Grand Prix -->
+      <article class="card" data-c="game">
+        <div class="shot"><img src="Office Chair Grand Prix.png" alt="Office Chair Grand Prix Game" loading="lazy"><span class="tag">Game</span></div>
+        <div class="body">
+          <h3>Office Chair Grand Prix</h3>
+          <p>A humorous casual racing game developed in Unity where players navigate office chairs through tracks filled with obstacles. Players must combine speed and precision to dodge hazards and achieve the fastest completion time.</p>
+          <div class="tech"><span>Unity</span><span>C#</span></div>
+        </div>
+      </article>
 
-               <!-- Project 8: Office Chair Grand Prix -->
-                <div class="project-card">
-                    <img src="Office Chair Grand Prix.png" alt="Office Chair Grand Prix Game" class="project-img">
-                    <div class="project-content">
-                        <div class="project-title">Office Chair Grand Prix</div>
-                        <div class="project-desc">A humorous casual racing game developed in Unity where players navigate office chairs through tracks filled with obstacles . Players must combine speed and precision to dodge hazards and achieve the fastest completion time .</div>
-                        
-                        <div class="skills-wrap" style="margin-top: auto; gap: 8px;">
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">Unity</span>
-                            <span class="skill-chip" style="padding: 4px 12px; font-size: 12px;">C#</span>
-                        </div>
-                    </div>
-                </div>
+      <!-- EduSummarize -->
+      <article class="card" data-c="software">
+        <div class="shot"><img src="EduSummarize.png" alt="EduSummarize" loading="lazy"><span class="tag">AI</span></div>
+        <div class="body">
+          <h3>EduSummarize</h3>
+          <p>EduSummarize is an AI-powered educational web platform designed to help students and educators streamline their study routines. It quickly extracts core concepts and key takeaways from uploaded PDF or TXT lecture notes, transforming lengthy academic text into clear, downloadable summaries.</p>
+          <div class="tech"><span>Hugging Face AI API</span><span>MySQL Database</span><span>Html</span><span>Apache PDFBox</span><span>Java EE</span></div>
+        </div>
+      </article>
 
-            </div>
-        </section>
+      <!-- Democratech -->
+      <article class="card" data-c="software">
+        <div class="shot"><img src="DemocraTech.png" alt="Democratech" loading="lazy"><span class="tag">Web app</span></div>
+        <div class="body">
+          <h3>Democratech</h3>
+          <p>DemocraTech is a comprehensive student election management platform developed for Universiti Teknologi MARA (UiTM). It provides a secure, transparent, and user-friendly experience for students to vote in elections, apply as candidates with custom manifestos, track voting history, and view real-time results.   </p>
+          <div class="tech"><span>Java</span><span>NetBeans</span><span>Apache Derby SQL</span><span>SQL</span></div>
+        </div>
+      </article>
 
-        <section id="gallery">
-            <h2 class="section-title">3D Models & Assets</h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">These are some 3D models I've engineered in Blender for the Computer Graphics Coursework.</p>
-            
-            <div class="gallery-container">
-                
-                <!-- 1st Model: Burger Stall -->
-                <div class="gallery-item">
-                    <div class="sketchfab-embed-wrapper"> 
-                        <iframe title="Burger Stall" width="100%" height="400" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/15d277d87b96495e83e6a11c67958e51/embed"> </iframe> 
-                        
-                        <p style="font-size: 13px; font-weight: normal; margin: 12px; color: #bacbb9; text-align: center;"> 
-                            <a href="https://sketchfab.com/3d-models/burger-stall-15d277d87b96495e83e6a11c67958e51" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> Burger Stall </a> by 
-                            <a href="https://sketchfab.com/cwnawawi0610" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> cwnawawi0610 </a> on Sketchfab
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 2nd Model: Container Beverage Stall -->
-                <div class="gallery-item">
-                    <div class="sketchfab-embed-wrapper"> 
-                        <iframe title="Container Beverage Stall" width="100%" height="400" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4b1220d40c254ab98de4797ab083b127/embed"> </iframe> 
-                        
-                        <p style="font-size: 13px; font-weight: normal; margin: 12px; color: #bacbb9; text-align: center;"> 
-                            <a href="https://sketchfab.com/3d-models/container-beverage-stall-4b1220d40c254ab98de4797ab083b127" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> Container Beverage Stall </a> by 
-                            <a href="https://sketchfab.com/cwnawawi0610" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e676; text-decoration: none;"> cwnawawi0610 </a> on Sketchfab
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="skills">
-            <h2 class="section-title">Technical Toolkit</h2>
-            <div class="skills-wrap">
-                <span class="skill-chip">Html</span>
-                <span class="skill-chip">CSS</span>
-                <span class="skill-chip">Java</span>
-                <span class="skill-chip">Python</span>
-                <span class="skill-chip">C++</span>
-                <span class="skill-chip">Unity</span>
-                <span class="skill-chip">Blender (3D)</span>
-                <span class="skill-chip">Android Studio</span>
-                <span class="skill-chip">Construct 2</span>
-                <span class="skill-chip">MySQL</span>
-                <span class="skill-chip">Alight Motion</span>
-                <span class="skill-chip">CapCut</span>
-                <span class="skill-chip">Adobe Photoshop</span>
-                <span class="skill-chip">Adobe Illustrator</span>
-                <span class="skill-chip">Microsoft Excel</span>
-                <span class="skill-chip">Canva</span>
-                </div>
-        </section>
-
-        <section id="experience">
-            <h2 class="section-title">Work Experience</h2>
-            <div class="timeline">
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">Sept 2024 - Feb 2025</div>
-                    <div>
-                        <div class="timeline-title">Database & Automation Officer Internship</div>
-                        <div class="timeline-subtitle">Noor Arfa Sdn Bhd</div>
-                        <p style="color: var(--text-muted); font-size: 14px;">Managed and optimized the customer database to ensure data accuracy and streamline daily operations. Designed and maintained promotional landing pages to drive engagement for marketing campaigns. Automated customer communications by scheduling targeted WhatsApp broadcast campaigns for promotions.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">Nov 2024 - Present</div>
-                    <div>
-                        <div class="timeline-title">Delivery Partner</div>
-                        <div class="timeline-subtitle">ShopeeFood</div>
-                        <p style="color: var(--text-muted); font-size: 14px;">Collects food and beverage orders from merchant partners and delivers them safely and promptly to customers using my personal motorcycle</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="education">
-            <h2 class="section-title">Education</h2>
-            <div class="timeline">
-
-                <div class="timeline-item">
-                    <div class="timeline-date">2025 - 2027 (Expected)</div>
-                    <div>
-                        <div class="timeline-title">Bachelor of Computer Science (Hons.) Multimedia Computing</div>
-                        <div class="timeline-subtitle">UiTM Shah Alam</div>
-                        <p style="color: var(--text-muted); font-size: 14px;">Current CGPA: 3.69 | Relevant Coursework: Data Structures, Enterprise Programming, Game Programming and Computer Graphics.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">2022 - 2025</div>
-                    <div>
-                        <div class="timeline-title">Diploma in Computer Science</div>
-                        <div class="timeline-subtitle">UiTM Kuala Terengganu</div>
-                        <p style="color: var(--text-muted); font-size: 14px;">Final CGPA: 3.80 | Awards: Anugerah Naib Canselor (ANC).</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">2017 - 2021</div>
-                    <div>
-                        <div class="timeline-title">Sijil Pelajaran Malaysia (SPM)</div>
-                        <div class="timeline-subtitle">SMK Mak Lagam</div>
-                        <p style="color: var(--text-muted); font-size: 14px;">Obtained 5As for 2021 SPM.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2 class="section-title">Let's Connect</h2>
-            <div class="contact-card">
-                <p>I am actively seeking a technical internship opportunity. Whether you have a position available or just want to discuss game development and multimedia programming, I'd love to hear from you.</p>
-                
-                <div class="contact-info-list">
-                    <span>📍 Kemaman, Terengganu / Shah Alam</span>
-                    <span>📱 +60 11-3919 0855</span>
-                </div>
-
-                <!-- Social Media Icons Container -->
-                <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 32px;">
-                    
-                    <!-- LinkedIn Icon (Replace the href with your actual LinkedIn URL) -->
-                    <a href="https://www.linkedin.com/in/cwan-nawawi-2847bb369/" target="_blank" rel="noopener noreferrer" class="icon-btn" style="margin-top: 0; align-self: center;" title="LinkedIn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    
-                    <!-- GitHub Icon -->
-                    <a href="https://github.com/2025120243-create" target="_blank" rel="noopener noreferrer" class="icon-btn" style="margin-top: 0; align-self: center;" title="GitHub">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                    </a>
-
-                </div>
-
-                <a href="mailto:kerjanawawi@gmail.com" class="btn-primary">Email Me Directly</a>
-            </div>
-        </section>
+      <!-- ALL IT Hypermarket Chatbot -->
+      <article class="card" data-c="software">
+        <div class="shot"><img src="AllIT.png" alt="ALL IT Hypermarket Chatbot" loading="lazy"><span class="tag">AI</span></div>
+        <div class="body">
+          <h3>ALL IT Hypermarket Chatbot</h3>
+          <p>The ALL IT E-Commerce Chatbot Solution is an AI-powered customer support assistant developed for ALL IT Hypermarket using Botpress Studio Cloud. It provides 24/7 bilingual automated support in English and Bahasa Melayu, helping online shoppers find products, check hardware compatibility, verify real-time branch inventory, and track orders and warranties.   </p>
+          <div class="tech"><span>Botpress</span></div>
+        </div>
+      </article>
 
     </div>
+  </section>
 
+  <section id="gallery" class="wrap">
+    <div class="sec-head">
+      <h2>3D Models &amp; Assets</h2>
+      <p>These are some 3D models I've engineered in Blender for the Computer Graphics Coursework.</p>
+    </div>
+    <div class="models">
+      <div class="model">
+        <iframe title="Burger Stall" loading="lazy" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/15d277d87b96495e83e6a11c67958e51/embed"></iframe>
+        <p><a href="https://sketchfab.com/3d-models/burger-stall-15d277d87b96495e83e6a11c67958e51" target="_blank" rel="nofollow noopener">Burger Stall</a> by <a href="https://sketchfab.com/cwnawawi0610" target="_blank" rel="nofollow noopener">cwnawawi0610</a> on Sketchfab</p>
+      </div>
+      <div class="model">
+        <iframe title="Container Beverage Stall" loading="lazy" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/4b1220d40c254ab98de4797ab083b127/embed"></iframe>
+        <p><a href="https://sketchfab.com/3d-models/container-beverage-stall-4b1220d40c254ab98de4797ab083b127" target="_blank" rel="nofollow noopener">Container Beverage Stall</a> by <a href="https://sketchfab.com/cwnawawi0610" target="_blank" rel="nofollow noopener">cwnawawi0610</a> on Sketchfab</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="wrap">
+    <div class="sec-head"><h2>Technical Toolkit</h2></div>
+    <div class="skills">
+      <div class="group"><h3>Languages</h3><div class="chips"><span>HTML</span><span>CSS</span><span>Java</span><span>Python</span><span>C++</span></div></div>
+      <div class="group"><h3>Game &amp; 3D</h3><div class="chips"><span>Unity</span><span>Construct 2</span><span>Blender (3D)</span></div></div>
+      <div class="group"><h3>Design &amp; video</h3><div class="chips"><span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Canva</span><span>Alight Motion</span><span>CapCut</span></div></div>
+      <div class="group"><h3>Development tools</h3><div class="chips"><span>Android Studio</span><span>MySQL</span><span>Microsoft Excel</span></div></div>
+    </div>
+  </section>
+
+  <section id="experience" class="wrap">
+    <div class="sec-head"><h2>Work Experience</h2></div>
+    <div class="tl">
+      <article>
+        <div class="when">Sept 2024 - Feb 2025</div>
+        <h3>Database &amp; Automation Officer Internship</h3>
+        <div class="org">Noor Arfa Sdn Bhd</div>
+        <p>Managed and optimized the customer database to ensure data accuracy and streamline daily operations. Designed and maintained promotional landing pages to drive engagement for marketing campaigns. Automated customer communications by scheduling targeted WhatsApp broadcast campaigns for promotions.</p>
+      </article>
+      <article class="now">
+        <div class="when">Nov 2024 - Present</div>
+        <h3>Delivery Partner</h3>
+        <div class="org">ShopeeFood</div>
+        <p>Collects food and beverage orders from merchant partners and delivers them safely and promptly to customers using my personal motorcycle</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="education" class="wrap">
+    <div class="sec-head"><h2>Education</h2></div>
+    <div class="tl">
+      <article class="now">
+        <div class="when">2025 - 2027 (Expected)</div>
+        <h3>Bachelor of Computer Science (Hons.) Multimedia Computing</h3>
+        <div class="org">UiTM Shah Alam</div>
+        <p>Current CGPA: 3.69 | Relevant Coursework: Data Structures, Enterprise Programming, Game Programming and Computer Graphics.</p>
+      </article>
+      <article>
+        <div class="when">2022 - 2025</div>
+        <h3>Diploma in Computer Science</h3>
+        <div class="org">UiTM Kuala Terengganu</div>
+        <p>Final CGPA: 3.80 | Awards: Anugerah Naib Canselor (ANC).</p>
+      </article>
+      <article>
+        <div class="when">2017 - 2021</div>
+        <h3>Sijil Pelajaran Malaysia (SPM)</h3>
+        <div class="org">SMK Mak Lagam</div>
+        <p>Obtained 5As for 2021 SPM.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap">
+    <div class="sec-head"><h2>Let's Connect</h2></div>
+    <div class="contact">
+      <div class="c-info">
+        <p>I am actively seeking a technical internship opportunity. Whether you have a position available or just want to discuss game development and multimedia programming, I'd love to hear from you.</p>
+        <div class="tiles">
+          <a class="tile" href="mailto:kerjanawawi@gmail.com"><svg class="i"><use href="#i-mail"/></svg><span><small>Email</small>kerjanawawi@gmail.com</span></a>
+          <a class="tile" href="tel:+601139190855"><svg class="i"><use href="#i-phone"/></svg><span><small>Phone</small>+60 11-3919 0855</span></a>
+          <div class="tile"><svg class="i"><use href="#i-pin"/></svg><span><small>Location</small>Kemaman, Terengganu / Shah Alam</span></div>
+          <a class="tile" href="https://www.linkedin.com/in/cwan-nawawi-2847bb369/" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-in"/></svg><span><small>Connect on</small>LinkedIn</span></a>
+          <a class="tile" href="https://github.com/2025120243-create" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-gh"/></svg><span><small>Code on</small>GitHub</span></a>
+        </div>
+      </div>
+      <form class="c-form" id="contactForm" novalidate>
+        <h3>Send me a message</h3>
+        <label for="cName">Your name</label>
+        <input id="cName" type="text" maxlength="80" autocomplete="name" placeholder="Your name and company">
+        <label for="cMsg">Message</label>
+        <textarea id="cMsg" rows="5" maxlength="1000" placeholder="Tell me about the role or what you'd like to discuss"></textarea>
+        <p class="err" id="cErr" role="alert" hidden></p>
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" id="sendEmail"><svg class="i"><use href="#i-mail"/></svg>Send by Email</button>
+          <button type="button" class="btn btn-wa" id="sendWA"><svg class="i"><use href="#i-wa"/></svg>Send by WhatsApp</button>
+        </div>
+        <p class="hint">Each button opens your email app or WhatsApp with your message ready to send.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>&copy; 2026 C Wan Muhammad Nawawi</span><a href="#top">Back to top</a></div>
+</footer>
+
+<script>
+const links=document.getElementById('links'), btn=document.getElementById('menu');
+const setMenu=o=>{links.classList.toggle('open',o);btn.setAttribute('aria-expanded',o)};
+btn.addEventListener('click',()=>setMenu(!links.classList.contains('open')));
+links.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+// Project filter
+const chips=document.querySelectorAll('.chip'), cards=document.querySelectorAll('.card');
+chips.forEach(c=>c.addEventListener('click',()=>{
+  chips.forEach(x=>x.setAttribute('aria-pressed',x===c));
+  cards.forEach(k=>k.hidden=c.dataset.f!=='all'&&k.dataset.c!==c.dataset.f);
+}));
+
+// Highlight the nav link of the section in view
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)document.querySelectorAll('.links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
+}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>io.observe(s));
+
+// Contact form: opens the visitor's email app or WhatsApp with the message filled in
+(()=>{
+  const form=document.getElementById('contactForm'), n=document.getElementById('cName'), m=document.getElementById('cMsg'), err=document.getElementById('cErr');
+  const MAIL='kerjanawawi@gmail.com', WA='601139190855';
+  const read=()=>{
+    const name=n.value.trim(), msg=m.value.trim();
+    [n,m].forEach(f=>f.removeAttribute('aria-invalid'));
+    const bad=!name?n:!msg?m:null;
+    if(bad){
+      bad.setAttribute('aria-invalid','true');
+      err.textContent=bad===n?'Please enter your name.':'Please write a short message.';
+      err.hidden=false; bad.focus(); return null;
+    }
+    err.hidden=true; return {name,msg};
+  };
+  form.addEventListener('submit',e=>e.preventDefault());
+  document.getElementById('sendEmail').addEventListener('click',()=>{
+    const d=read(); if(!d) return;
+    const body='Hi Nawawi,\n\n'+d.msg+'\n\nRegards,\n'+d.name;
+    location.href='mailto:'+MAIL+'?subject='+encodeURIComponent('Portfolio enquiry from '+d.name)+'&body='+encodeURIComponent(body);
+  });
+  document.getElementById('sendWA').addEventListener('click',()=>{
+    const d=read(); if(!d) return;
+    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('Hi Nawawi, this is '+d.name+'.\n\n'+d.msg),'_blank','noopener');
+  });
+})();
+</script>
 </body>
 </html>
