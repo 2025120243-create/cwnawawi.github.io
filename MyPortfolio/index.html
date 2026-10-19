@@ -18,7 +18,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{background:var(--bg-color);color:var(--text-main);font-family:var(--font-main);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background-color:var(--bg-color);background-image:radial-gradient(circle,rgba(229,226,225,.14) 1.3px,transparent 1.5px);background-size:24px 24px;color:var(--text-main);font-family:var(--font-main);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,iframe{display:block;max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:6px}
@@ -51,7 +51,7 @@ h1,h2,h3{font-family:var(--font-display);color:#fff}
 
 /* Hero */
 .hero{display:grid;grid-template-columns:1fr 320px;align-items:center;gap:56px;padding-top:64px;padding-bottom:72px;position:relative}
-.hero::before{content:"";position:absolute;right:-8%;top:-10%;width:520px;height:520px;background:radial-gradient(circle,rgba(0,230,118,.12),transparent 65%);pointer-events:none;z-index:-1}
+.hero::before{content:"";position:absolute;right:0%;top:-10%;width:min(520px,100%);height:520px;background:radial-gradient(circle,rgba(0,230,118,.12),transparent 65%);pointer-events:none;z-index:-1}
 .status{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface-container);font-size:13px;font-weight:500;color:var(--text-muted);margin-bottom:24px}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px var(--primary)}
 .greeting{display:block;color:var(--primary);font-weight:600;font-size:18px;margin-bottom:6px}
@@ -152,13 +152,124 @@ footer{padding:48px 0 calc(40px + env(safe-area-inset-bottom,0px));color:var(--t
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:24px}
 footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary)}
 
+/* Beyond Code */
+.gig{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center;background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px}
+.vid{aspect-ratio:16/10;background:#000;border-radius:12px;overflow:hidden}
+.vid video{display:block;width:100%;height:100%;object-fit:contain}
+.gig .vid{aspect-ratio:16/9}
+.gig-info{padding:8px 12px 8px 4px}
+.gig-info h3{font-size:1.5rem;margin:14px 0 8px}
+.gig-info p{color:var(--text-muted)}
+.sub{font-size:1.3rem;margin:48px 0 6px}
+.sub-note{color:var(--text-muted);margin-bottom:20px}
+.reels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.reel{background:var(--surface-container);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .25s}
+.reel:hover{border-color:var(--primary)}
+.reel .vid{border-radius:0}
+.reel figcaption{padding:14px 16px}
+.reel b{display:block;font-family:var(--font-display);color:#fff}
+.reel span{font-size:13px;color:var(--text-muted)}
+
+/* Horizontal Scroll Containers for Beyond Code */
+.scroll-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--surface-container);
+}
+.scroll-row::-webkit-scrollbar { 
+    height: 8px; 
+}
+.scroll-row::-webkit-scrollbar-track { 
+    background: var(--surface-container); 
+    border-radius: 8px; 
+}
+.scroll-row::-webkit-scrollbar-thumb { 
+    background: var(--outline); 
+    border-radius: 8px; 
+}
+
+.scroll-card {
+    flex: 0 0 320px; /* Locks the width of each video card */
+    scroll-snap-align: start;
+    background: var(--surface-container);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s;
+}
+.scroll-card:hover {
+    border-color: var(--primary);
+}
+.scroll-card .vid {
+    aspect-ratio: 16/9;
+    background: #000;
+}
+.scroll-card iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.scroll-card figcaption {
+    padding: 14px 16px;
+}
+.scroll-card b {
+    display: block;
+    font-family: var(--font-display);
+    color: #fff;
+}
+.scroll-card span {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Make cards adjust smoothly on phones */
+@media(max-width: 700px) {
+    .scroll-card { flex: 0 0 85%; } 
+}
+
+.scroll-gig {
+    flex: 0 0 850px; /* Makes the card large and wide on desktop */
+    scroll-snap-align: start;
+    margin-bottom: 0 !important; /* Removes the vertical stacking margin */
+}
+
+/* Shrinks the card slightly on smaller screens so it fits the mobile view perfectly */
+@media(max-width: 900px) {
+    .scroll-gig { flex: 0 0 85vw; }
+}
+
+/* Video Editing clips: same height, natural width, no captions */
+.clips{--h:320px;align-items:flex-start}
+.clip{--r:1.7778;position:relative;display:block;flex:0 0 auto;height:var(--h);width:calc(var(--h) * var(--r));max-width:100%;background:#000;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;scroll-snap-align:start;transition:border-color .25s}
+.clip.tall{--r:.5625}   /* 9:16 shorts */
+.clip.four{--r:1.3333}  /* 4:3 */
+.clip img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.clip:hover{border-color:var(--primary)}
+.clip:hover img{transform:scale(1.05)}
+.clip::after{content:"";position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;border:2px solid var(--primary);background:rgba(0,0,0,.8) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e676'%3E%3Cpolygon points='8 5 19 12 8 19'/%3E%3C/svg%3E") center/24px no-repeat;transition:transform .2s}
+.clip:hover::after{transform:scale(1.12)}
+@media(max-width:700px){.clips{--h:220px}}
+
+/* Education cards with a transcript / certificate button */
+.act[hidden]{display:none}
+.tl article.has-act{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.edu-text{flex:1;min-width:0}
+.tl article.has-act .act{flex:none}
+@media(max-width:700px){.tl article.has-act{flex-direction:column;align-items:flex-start;gap:14px}}
+
 /* Tablet */
 @media(max-width:980px){
   .grid{grid-template-columns:repeat(2,1fr)}
   .hero{grid-template-columns:1fr 240px;gap:32px}
 }
 /* Mobile */
-@media(max-width:860px){
+@media(max-width:980px){
   .menu-btn{display:grid}
   .links{position:absolute;left:0;right:0;top:100%;flex-direction:column;background:#161616;border-bottom:1px solid var(--line);padding:8px max(20px,env(safe-area-inset-left)) 16px;display:none}
   .links.open{display:flex}
@@ -179,7 +290,12 @@ footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary
 }
 @media(max-width:860px){.contact{grid-template-columns:1fr;gap:28px}}
 @media(min-width:560px) and (max-width:860px){.tiles{grid-template-columns:1fr 1fr}}
+@media(max-width:980px){.reels{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.gig{grid-template-columns:1fr;gap:16px}.gig-info{padding:0 4px 8px}}
+@media(max-width:560px){.reels{grid-template-columns:1fr}.gig{padding:14px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.model p a,footer a{display:inline-block;padding:10px 4px}
 </style>
 </head>
 <body>
@@ -207,6 +323,7 @@ footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
+      <a href="#beyond">Beyond Code</a>
       <a href="#contact">Contact</a>
     </nav>
     <button class="menu-btn" id="menu" aria-expanded="false" aria-controls="links" aria-label="Toggle menu">
@@ -415,27 +532,146 @@ footer a{text-decoration:none;font-weight:600}footer a:hover{color:var(--primary
     </div>
   </section>
 
-  <section id="education" class="wrap">
+    <section id="education" class="wrap">
     <div class="sec-head"><h2>Education</h2></div>
     <div class="tl">
-      <article class="now">
-        <div class="when">2025 - 2027 (Expected)</div>
-        <h3>Bachelor of Computer Science (Hons.) Multimedia Computing</h3>
-        <div class="org">UiTM Shah Alam</div>
-        <p>Current CGPA: 3.69 | Relevant Coursework: Data Structures, Enterprise Programming, Game Programming and Computer Graphics.</p>
+      <article class="now has-act">
+        <div class="edu-text">
+          <div class="when">2025 - 2027 (Expected)</div>
+          <h3>Bachelor of Computer Science (Hons.) Multimedia Computing</h3>
+          <div class="org">UiTM Shah Alam</div>
+          <p>Current CGPA: 3.69 | Relevant Coursework: Data Structures, Enterprise Programming, Game Programming and Computer Graphics.</p>
+        </div>
+        <!-- Degree transcript: when ready, delete the word "hidden" and put your file name in href -->
+        <a class="act" href="Degree Transcript.pdf" target="_blank" rel="noopener noreferrer" hidden><svg class="i"><use href="#i-file"/></svg>View transcript</a>
       </article>
-      <article>
-        <div class="when">2022 - 2025</div>
-        <h3>Diploma in Computer Science</h3>
-        <div class="org">UiTM Kuala Terengganu</div>
-        <p>Final CGPA: 3.80 | Awards: Anugerah Naib Canselor (ANC).</p>
+      <article class="has-act">
+        <div class="edu-text">
+          <div class="when">2022 - 2025</div>
+          <h3>Diploma in Computer Science</h3>
+          <div class="org">UiTM Kuala Terengganu</div>
+          <p>Final CGPA: 3.80 | Awards: Anugerah Naib Canselor (ANC).</p>
+        </div>
+        <a class="act" href="MINI TRANSKRIP DIPLOMA.pdf" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-file"/></svg>View transcript</a>
       </article>
-      <article>
-        <div class="when">2017 - 2021</div>
-        <h3>Sijil Pelajaran Malaysia (SPM)</h3>
-        <div class="org">SMK Mak Lagam</div>
-        <p>Obtained 5As for 2021 SPM.</p>
+      <article class="has-act">
+        <div class="edu-text">
+          <div class="when">2017 - 2021</div>
+          <h3>Sijil Pelajaran Malaysia (SPM)</h3>
+          <div class="org">SMK Mak Lagam</div>
+          <p>Obtained 5As for 2021 SPM.</p>
+        </div>
+        <!-- SPM certificate: when ready, delete the word "hidden" and put your file name in href -->
+        <a class="act" href="Sijil Pelajaran Malaysia.pdf" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-file"/></svg>View certificate</a>
       </article>
+    </div>
+  </section>
+
+  <section id="beyond" class="wrap">
+    <div class="sec-head">
+      <h2>Beyond Code</h2>
+      <p>Outside of coding, I play guitar in a band and edit videos.</p>
+    </div>
+
+    <!-- GUITAR SEGMENT -->
+    <h3 class="sub" style="margin-top: 0;">Guitar Performances</h3>
+    <p class="sub-note">Live gigs and covers.</p>
+    
+    <!-- Wrapper to make it scroll horizontally -->
+    <div class="scroll-row">
+      
+      <!-- Guitar Video 1: Live Gig -->
+      <div class="gig scroll-gig">
+        
+        <!-- FAKE EMBED: Clickable Thumbnail -->
+        <div class="vid" style="position: relative; cursor: pointer;" onclick="window.open('https://youtu.be/ktF14hIHG30', '_blank')">
+          <!-- Automatically fetches your YouTube video's highest quality thumbnail -->
+          <img src="https://img.youtube.com/vi/ktF14hIHG30/maxresdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Gig Thumbnail">
+          
+          <!-- Play Button Overlay -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); transition: transform 0.2s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)" stroke="none">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+          </div>
+        </div>
+
+        <div class="gig-info">
+          <div class="chips" style="margin-bottom: 12px;">
+              <span style="padding: 4px 12px; font-size: 12px; border: 1px solid var(--outline); border-radius: 999px;">Guitarist</span>
+              <span style="padding: 4px 12px; font-size: 12px; border: 1px solid var(--outline); border-radius: 999px;">Live gig</span>
+          </div>
+          <h3 style="margin-top: 0;">Malam Renjana Klasik</h3>
+          <p>A live performance with my college band during the UiTM College Festivals.</p>
+        </div>
+      </div>
+
+      <!-- Guitar Video 2: Guitar Cover -->
+      <div class="gig scroll-gig">
+        
+        <!-- FAKE EMBED: Clickable Thumbnail -->
+        <div class="vid" style="position: relative; cursor: pointer;" onclick="window.open('https://youtu.be/ZTV273Jg9qg', '_blank')">
+          <!-- Automatically fetches your YouTube video's highest quality thumbnail -->
+          <img src="https://img.youtube.com/vi/ZTV273Jg9qg/hqdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Cover Thumbnail">
+          
+          <!-- Play Button Overlay -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); transition: transform 0.2s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)" stroke="none">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+          </div>
+        </div>
+
+        <div class="gig-info">
+          <div class="chips" style="margin-bottom: 12px;">
+              <span style="padding: 4px 12px; font-size: 12px; border: 1px solid var(--outline); border-radius: 999px;">Guitarist</span>
+              <span style="padding: 4px 12px; font-size: 12px; border: 1px solid var(--outline); border-radius: 999px;">Live Gig</span>
+          </div>
+          <h3 style="margin-top: 0;">Malam Melankoli</h3>
+          <p>A live performance with my college band during the UiTM College Festivals.</p>
+        </div>
+      </div>
+
+      <!-- Guitar Video 3: Guitar Cover -->
+      <div class="gig scroll-gig">
+        
+        <!-- FAKE EMBED: Clickable Thumbnail -->
+        <div class="vid" style="position: relative; cursor: pointer;" onclick="window.open('https://youtu.be/c0l04fstCTc', '_blank')">
+          <!-- Automatically fetches your YouTube video's high-quality thumbnail -->
+          <img src="https://img.youtube.com/vi/c0l04fstCTc/hqdefault.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Guitar Cover Thumbnail">
+          
+          <!-- Play Button Overlay -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); transition: transform 0.2s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)" stroke="none">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+          </div>
+        </div>
+
+        <div class="gig-info">
+          <div class="chips" style="margin-bottom: 12px;">
+              <span style="padding: 4px 12px; font-size: 12px; border: 1px solid var(--outline); border-radius: 999px;">Guitarist</span>
+              <span style="padding: 4px 12px; font-size: 12px; border: 1px solid var(--outline); border-radius: 999px;">Cover</span>
+          </div>
+          <h3 style="margin-top: 0;">Guitar Cover</h3>
+          <p>One of the covers I posted on my social medias.</p>
+        </div>
+      </div>
+
+    </div>
+
+        <!-- VIDEO EDITING SEGMENT -->
+    <h3 class="sub">Video Editing</h3>
+    <p class="sub-note">Edits I made using Alight Motion, CapCut, and Ibis Paint X. Since these videos are edited in a mobile phone, the visual quality might be a little low.</p>
+    <div class="scroll-row clips">
+      <!-- class "four" = 4:3, "tall" = 9:16 short, no extra class = 16:9 -->
+      <a class="clip four" href="https://youtube.com/shorts/CEQQykEaUps" target="_blank" rel="noopener noreferrer" title="Jedag-Jedug"><img src="https://img.youtube.com/vi/CEQQykEaUps/hqdefault.jpg" alt="" loading="lazy"></a>
+      <a class="clip tall" href="https://youtube.com/shorts/krmGvK5xpuY" target="_blank" rel="noopener noreferrer" title="Mograph"><img src="https://img.youtube.com/vi/krmGvK5xpuY/hqdefault.jpg" alt="" loading="lazy"></a>
+      <a class="clip tall" href="https://youtube.com/shorts/bVjRjQ4C1D0" target="_blank" rel="noopener noreferrer" title="Logo Editing"><img src="https://img.youtube.com/vi/bVjRjQ4C1D0/hqdefault.jpg" alt="" loading="lazy"></a>
+      <a class="clip tall" href="https://youtube.com/shorts/GSCkSCH1oDg" target="_blank" rel="noopener noreferrer" title="Cinematic Cut"><img src="https://img.youtube.com/vi/GSCkSCH1oDg/hqdefault.jpg" alt="" loading="lazy"></a>
+      <a class="clip tall" href="https://youtube.com/shorts/g8zW8wMa-Dc" target="_blank" rel="noopener noreferrer" title="Gameplay Montage"><img src="https://img.youtube.com/vi/g8zW8wMa-Dc/hqdefault.jpg" alt="" loading="lazy"></a>
+      <a class="clip" href="https://youtu.be/FK9L5pIQ6ow" target="_blank" rel="noopener noreferrer" title="Typography Edit"><img src="https://img.youtube.com/vi/FK9L5pIQ6ow/hqdefault.jpg" alt="" loading="lazy"></a>
+      <a class="clip" href="https://youtu.be/_Ho3rZfkCdg" target="_blank" rel="noopener noreferrer" title="Visual Effects"><img src="https://img.youtube.com/vi/_Ho3rZfkCdg/hqdefault.jpg" alt="" loading="lazy"></a>
     </div>
   </section>
 
@@ -519,6 +755,10 @@ document.querySelectorAll('main section[id]').forEach(s=>io.observe(s));
     window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('Hi Nawawi, this is '+d.name+'.\n\n'+d.msg),'_blank','noopener');
   });
 })();
+
+// Only one video plays at a time
+const vids=document.querySelectorAll('#beyond video');
+vids.forEach(v=>v.addEventListener('play',()=>vids.forEach(o=>{if(o!==v)o.pause()})));
 </script>
 </body>
 </html>
